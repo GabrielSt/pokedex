@@ -78,9 +78,6 @@ export const PokemonCard: React.FC<PokemonCardProps> = ({ pokemon }) => {
             setCustomPokemon({
               ...customPokemon,
               selectedFastAttack: customPokemon.attacks.fast[0],
-            });
-            setCustomPokemon({
-              ...customPokemon,
               selectedSpecialAttack: customPokemon.attacks.special[0],
             });
             randomizeCatch();
