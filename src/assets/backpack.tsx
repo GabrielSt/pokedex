@@ -119,5 +119,5 @@ const SvgBackpack = (props: SVGProps<SVGSVGElement>) => (
     </g>
   </svg>
 );
-const Backpack = memo(SvgBackpack);
-export default Backpack;
+const BackpackIcon = memo(SvgBackpack);
+export default BackpackIcon;

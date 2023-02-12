@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
-import Backpack from "../../assets/backpack";
+
+import BackpackIcon from "../../assets/backpack";
 import { pokeballsState } from "../../atoms/pokeballs";
 import { Pokeball } from "../pokemons";
 import { pokemonsState } from "../../atoms/pokemons";
+import { Backpack } from "../backpack";
 
 const Nav = styled.div`
   position: fixed;
@@ -48,6 +50,9 @@ const Nav = styled.div`
       display: none;
     }
   }
+  .backpack {
+    cursor: pointer;
+  }
 `;
 
 const Quantity = styled.span`
@@ -69,25 +74,30 @@ const Quantity = styled.span`
 export const Navbar: React.FC = () => {
   const [pokeballs, setPokeballs] = useRecoilState(pokeballsState);
   const [pokemons, setPokemons] = useRecoilState(pokemonsState);
+  const [backpackOpen, setBackpackOpen] = useState(false);
+
   return (
-    <Nav>
-      <div>
-        Pokeballs left:
-        <div className="stacked">
-          <Pokeball />
-          <Quantity>{pokeballs}</Quantity>
+    <>
+      <Nav>
+        <div>
+          Pokeballs left:
+          <div className="stacked">
+            <Pokeball />
+            <Quantity>{pokeballs}</Quantity>
+          </div>
+          <div className="separated">
+            {[...Array(pokeballs)].map((x, i) => (
+              <Pokeball key={i} />
+            ))}
+          </div>
         </div>
-        <div className="separated">
-          {[...Array(pokeballs)].map((x, i) => (
-            <Pokeball key={i} />
-          ))}
+        <div className="backpack" onClick={() => setBackpackOpen(true)}>
+          <BackpackIcon width={40} height={40} />
+          <Quantity>{pokemons.length}</Quantity>
         </div>
-      </div>
-      <div>
-        <Backpack width={40} height={40} />
-        <Quantity>{pokemons.length}</Quantity>
-      </div>
-    </Nav>
+      </Nav>
+      <Backpack open={backpackOpen} onClose={() => setBackpackOpen(false)} />
+    </>
   );
 };
 
